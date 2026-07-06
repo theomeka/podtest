@@ -22,3 +22,12 @@ spec:
         image: nicolaka/netshoot:v0.16
 
         name: netshoot
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    kubernetes.io/metadata.name: podtest
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/enforce-version: latest
+  name: podtest

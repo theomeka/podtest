@@ -13,15 +13,21 @@ spec:
         app: netshoot
     spec:
       containers:
-      - args:
-        - -c
-        # - while true; do ping localhost; sleep 3660;done
-        - sleep 3660
+      - name: netshoot
+        image: nicolaka/netshoot:v0.16
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
         command:
         - /bin/bash
-        image: nicolaka/netshoot:v0.16
-
-        name: netshoot
+        - -c
+        - |
+          while true; do
+            echo "$(date) Pod: ${POD_NAME}"
+            sleep 5
+          done
 ---
 apiVersion: v1
 kind: Namespace
